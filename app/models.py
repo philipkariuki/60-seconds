@@ -44,5 +44,40 @@ class User(UserMixin,db.Model):
 
 
 
+class Pitches(db.Model):
+
+    __tablename__ = 'pitches'
+    id = db.Column(db.Integer,primary_key = True)
+    piches_id = db.Column(db.Integer)
+    title = db.Column(db.String)
+    user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
+    review = db.Column(db.String)
+    
+
+
+
+    def save_pitches(self):
+        db.session.add(self)
+        db.session.commit()
+
+
+    @classmethod
+    def get_pitches(cls,id):
+
+        response =cls.query.filter_by(pitches_id = id).all()
+        return response
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
