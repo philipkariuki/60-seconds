@@ -18,13 +18,3 @@ class TestComments(unittest.TestCase):
 
 
     
-    def test_save_comments(self):
-        self.new_comments.save_comments()
-        self.assertTrue(len(Comments.query.all())>0)
-
-
-    def test_get_comments_by_id(self):
-
-        self.new_comments.save_comments()
-        got_comments = Comments.get_comments(12345)
-        self.assertTrue(len(got_comments) == 1)

@@ -84,7 +84,7 @@ class Categories(db.Model):
 
     @classmethod
     def get_categories(cls):
-        categories = Category.query.all()
+        categories = Categories.query.all()
         return categories
 
 
