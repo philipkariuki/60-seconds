@@ -1,8 +1,8 @@
-"""first migration
+"""a migration
 
-Revision ID: 426a79183275
+Revision ID: 918273bd84a2
 Revises: 
-Create Date: 2019-07-01 13:24:40.912397
+Create Date: 2019-07-02 10:55:49.531545
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '426a79183275'
+revision = '918273bd84a2'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -37,19 +37,23 @@ def upgrade():
     op.create_index(op.f('ix_users_username'), 'users', ['username'], unique=False)
     op.create_table('pitches',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('piches_id', sa.Integer(), nullable=True),
+    sa.Column('pitches_id', sa.Integer(), nullable=True),
     sa.Column('title', sa.String(), nullable=True),
     sa.Column('user_id', sa.Integer(), nullable=True),
+    sa.Column('date_posted', sa.DateTime(), nullable=True),
+    sa.Column('category_id', sa.Integer(), nullable=True),
     sa.Column('review', sa.String(), nullable=True),
+    sa.ForeignKeyConstraint(['category_id'], ['categories.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('comments',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('body', sa.String(length=255), nullable=True),
-    sa.Column('pitch_id', sa.Integer(), nullable=True),
+    sa.Column('comment_section_id', sa.String(length=255), nullable=True),
+    sa.Column('date_posted', sa.DateTime(), nullable=True),
     sa.Column('user_id', sa.Integer(), nullable=True),
-    sa.ForeignKeyConstraint(['pitch_id'], ['pitches.id'], ),
+    sa.Column('pitches_id', sa.Integer(), nullable=True),
+    sa.ForeignKeyConstraint(['pitches_id'], ['pitches.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )

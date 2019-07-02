@@ -4,11 +4,14 @@ from wtforms.validators import Required
 
 class CommentsForm(FlaskForm):
 
-    title = StringField('Review title',validators=[Required()])
-    review = TextAreaField('Insert Comment here')
+    
+    comment_section_id = TextAreaField('Insert Comment here')
     submit = SubmitField('Submit')
 
 
+class PitchesForm(FlaskForm):
+    review = TextAreaField('Create Pitch')
+    submit = SubmitField('Submit')
 
 
 class UpdateProfile(FlaskForm):

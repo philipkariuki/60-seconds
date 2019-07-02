@@ -1,8 +1,8 @@
 
 from flask import render_template,request,redirect,url_for,abort
 from . import main
-from .forms import CommentsForm,UpdateProfile
-from ..models import Categories,User, Pitches
+from .forms import CommentsForm,UpdateProfile,PitchesForm
+from ..models import Categories,User, Pitches,Comments
 from flask_login import login_required, current_user
 from .. import db,photos
 import markdown2
@@ -22,58 +22,93 @@ def index():
     return render_template('index.html', title = title, categories = categories )
 
 
-@main.route('/movie/<int:id>')
-def movie(id):
 
+
+
+
+
+
+
+
+
+
+@main.route('/categories/<int:id>')
+def categories(id):
     '''
-    View movie page function that returns the movie details page and its data
+    category route function returns a list of pitches chosen and allows users to create a new pitch
     '''
-    movie = get_movie(id)
-    title = f'{movie.title}'
-    reviews = Review.get_reviews(movie.id)
 
-    return render_template('movie.html',title = title,movie = movie,reviews = reviews)
+    categories = Categories.query.get(id)
 
-
-
-
-
-
-
-
-
-@main.route('/review/<int:id>')
-def single_review(id):
-    review=Review.query.get(id)
-    if review is None:
+    if categories is None:
         abort(404)
-    format_review = markdown2.markdown(review.review,extras=["code-friendly", "fenced-code-blocks"])
-    return render_template('review.html',review = review,format_review=format_review)
+        
+    pitches = Pitches.get_pitches(id)
+    title = "Pitches"
+    return render_template('categories.html', title = title, categories = categories,pitches = pitches)
 
-
-
-
-
-
-
-@main.route('/movie/review/new/<int:id>', methods = ['GET','POST'])
+# Dynamic routing for pitches
+@main.route('/categories/pitches/new/<int:id>', methods = ['GET','POST'])
 @login_required
-def new_review(id):
-    form = ReviewForm()
-    movie = get_movie(id)
+def new_pitches(id):
+    '''
+    Function to check Pitches form
+    '''
+    form = PitchesForm()
+    categories = Categories.query.filter_by(id=id).first()
+
+    if categories is None:
+        abort(404)
 
     if form.validate_on_submit():
-        title = form.title.data
         review = form.review.data
-        # Updated review instance
-        new_review = Review(movie_id=movie.id,title=title,image_path=movie.poster,review=review,user=current_user)
+        # user = current_user._get_current_object()
+        new_pitches = Pitches(review=review,user_id=current_user.id,category_id=categories.id)
+        new_pitches.save_pitches()
+        return redirect(url_for('.categories', id = categories.id))
 
-        # save review method
-        new_review.save_review()
-        return redirect(url_for('.movie',id = movie.id ))
+    title = 'New pitch'
+    return render_template('newpitches.html', title = title, pitches_form = form)
 
-    title = f'{movie.title} review'
-    return render_template('new_review.html',title = title, review_form=form, movie=movie)
+# Dynamic routing for one pitch
+@main.route('/pitches/<int:id>', methods = ['GET','POST'])
+@login_required
+def single_pitch(id):
+    
+    pitches = Pitches.query.get(id)
+
+    if pitches is None:
+        abort(404)
+
+    comments = Comments.get_comments(id)
+    title = 'Comment Section'
+    return render_template('pitch.html', title = title, pitches = pitches, comments = comments )
+
+
+# Dynamic routing for comment section
+@main.route('/pitches/new/<int:id>', methods = ['GET','POST'])
+@login_required
+def new_comment(id):
+    '''
+    Function that returns a list of comments for the particular pitch
+    '''
+    form = CommentsForm()
+    pitches = Pitches.query.filter_by(id=id).first()
+
+    if pitches is None:
+        abort(404)
+
+    if form.validate_on_submit():
+        comment_section_id = form.comment_section_id.data
+        new_comment = Comments(comment_section_id=comment_section_id, user_id=current_user.id,pitches_id=pitches.id)
+        new_comment.save_comments()
+        return redirect(url_for('.categories', id = pitches.id))
+
+    title = 'New Comment'
+    return render_template('comments.html', title = title, comment_form = form)
+
+
+
 
 
 

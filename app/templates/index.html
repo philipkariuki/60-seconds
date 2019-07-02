@@ -17,27 +17,38 @@
 
 
 
-<div class="container-fluid">
+<div class="container">
 
 	  <style>
-      h3 {
+      body {
         font-family: 'Tangerine', cursive;
         font-size: 48px;
         text-shadow: 4px 4px 4px #aaa;
       }
+
+      h3 {
+        font-size: 52px;
+      }
+
+      h5 {
+        font-size: 30px;
+
+         }
+
     </style>
 
 
 	<div class="row">
 		
+
+		<h3 style="text-align:center;">Please select a category</h3>
+  		<ul>{{ macro.displayCategories(categories) }}</ul>
+
+
+
+
 	</div>
 
-	<div class="row">
-		
-	</div>
-
-	<div class="row">
-		
-	</div>
+	
 </div>
 {% endblock%}

@@ -1,0 +1,50 @@
+{% extends 'base.html'%}
+{% import 'macros.html' as macro%}
+
+
+
+
+<!-- Content block -->
+{% block content %}
+<div class="container">
+
+    <!-- Poster background -->
+    <div class="row">
+        
+
+        <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8">
+            <p><{{ pitches.review }}/p>
+            <h3> <strong>Pitch:</strong> <i>{{pitches.review}}</i></h3>
+            <hr>
+            <hr>
+        </div>
+    </div>
+
+
+    <div class="row">
+
+        <h3>Comments:</h3>
+        <hr>
+
+        {% if comments %}
+            {{macro.displayComments(comments)}}
+
+        <hr>
+
+        {% else%}
+            <h3 class="text-center">This Pitch has no comment </h3>
+        {% endif %}
+
+        <a class="btn btn-success btn-lg text-center" href="/pitches/new/{{pitches.id}}"> Write a new Comment</a>
+        
+
+    </div>
+
+
+</div>
+
+
+{% endblock %}
+
+
+

@@ -1,0 +1,50 @@
+{% macro displayCategories(categories_list) %} 
+  {% for categories in categories_list%}
+    <div class="well well-lg col-xs-12 col-sm-12 col-md-12 col-lg-12 pitch-card text-center">
+      <h3><a href="/categories/{{categories.id}}">{{categories.name}}</a></h3>
+      <h5>{{ categories.description }}</h5>
+    </div> 
+    {% endfor%}
+{% endmacro%}
+
+
+
+<!-- Display Pitches -->
+{% macro displayPitches(pitches_list) %} 
+  {% for pitches in pitches_list%}
+  <li class="list-unstyled">
+    <a href="/pitches/{{pitches.id}}"><h3>{{pitches.review}}</h3></a>
+    <p class="text-right">author:{{pitches.user.username}}</p> 
+    <p class="text-right"><span id="time" >date posted:{{pitches.date_posted.strftime('%B %d, %Y %r')}}</span></p>
+  </li>
+  <hr>
+  {% endfor%}
+{% endmacro%}
+
+
+<!-- Display Comments -->
+{% macro displayComments(comments_list) %} 
+{% for comments in comments_list%}
+
+
+
+
+ <style>
+      
+      .list-group {
+        font-size: 19px;
+
+      }
+
+     
+
+    </style>
+  <ul class="list-group">
+  <li class="list-group-item">
+    {{comments.comment_section_id}}
+  </li>
+</ul>
+{% endfor%}
+{% endmacro%}
+
+
