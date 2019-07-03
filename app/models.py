@@ -95,12 +95,9 @@ class Categories(db.Model):
 
 
 class Comments(db.Model):
-    '''
-    Comment class that creates new comments from users in pitches
-    '''
     __tablename__ = 'comments'
 
-    # add columns
+    # table columns
     id = db.Column(db. Integer,primary_key = True)
     comment_section_id = db.Column(db.String(255))
     date_posted = db.Column(db.DateTime,default=datetime.now)
@@ -108,9 +105,6 @@ class Comments(db.Model):
     pitches_id = db.Column(db.Integer,db.ForeignKey("pitches.id"))
 
     def save_comments(self):
-        '''
-        Save the comments per pitch
-        '''
         db.session.add(self)
         db.session.commit()
 

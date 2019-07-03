@@ -12,11 +12,7 @@ import markdown2
 
 @main.route('/')
 def index():
-
-    '''
-    View root page function that returns the index page and its data
-    '''
-
+    
     categories = Categories.get_categories()
     title = 'Pitch please'
     return render_template('index.html', title = title, categories = categories )
@@ -34,9 +30,6 @@ def index():
 
 @main.route('/categories/<int:id>')
 def categories(id):
-    '''
-    category route function returns a list of pitches chosen and allows users to create a new pitch
-    '''
 
     categories = Categories.query.get(id)
 
@@ -51,9 +44,6 @@ def categories(id):
 @main.route('/categories/pitches/new/<int:id>', methods = ['GET','POST'])
 @login_required
 def new_pitches(id):
-    '''
-    Function to check Pitches form
-    '''
     form = PitchesForm()
     categories = Categories.query.filter_by(id=id).first()
 
@@ -62,7 +52,6 @@ def new_pitches(id):
 
     if form.validate_on_submit():
         review = form.review.data
-        # user = current_user._get_current_object()
         new_pitches = Pitches(review=review,user_id=current_user.id,category_id=categories.id)
         new_pitches.save_pitches()
         return redirect(url_for('.categories', id = categories.id))
@@ -70,7 +59,7 @@ def new_pitches(id):
     title = 'New pitch'
     return render_template('newpitches.html', title = title, pitches_form = form)
 
-# Dynamic routing for one pitch
+
 @main.route('/pitches/<int:id>', methods = ['GET','POST'])
 @login_required
 def single_pitch(id):
@@ -82,16 +71,13 @@ def single_pitch(id):
 
     comments = Comments.get_comments(id)
     title = 'Comment Section'
-    return render_template('pitch.html', title = title, pitches = pitches, comments = comments )
+    return render_template('pitch.html', title = title, pitches = pitches, comments = comments, categories=categories )
 
 
-# Dynamic routing for comment section
+
 @main.route('/pitches/new/<int:id>', methods = ['GET','POST'])
 @login_required
 def new_comment(id):
-    '''
-    Function that returns a list of comments for the particular pitch
-    '''
     form = CommentsForm()
     pitches = Pitches.query.filter_by(id=id).first()
 

@@ -7,7 +7,7 @@ class TestComments(unittest.TestCase):
 
     def setUp(self):
         self.user_Phil = User(username = 'Phil',password = 'potato', email = 'phli@ymail.com')
-        self.new_comments = Comments(id=1,body='This is a commentary',pitch_id = 2,user_id= 1 )
+        self.new_comments = Comments(id=1, comment_section_id='This is a commentary',pitches_id = 2,user_id= 1 )
 
     def tearDown(self):
         Comments.query.delete()
