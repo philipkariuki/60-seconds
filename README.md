@@ -7,7 +7,7 @@ IP for MC18 week 3 of Python that requires creating a web application that allow
 
 ## Description
 This is a web application that allows various users to submit a short pitch. Users can also be able to view other pitches from different categories (Pick-up Lines, Interview Pitches, Product Pitches, Promotion Pitches), comment and vote. For a user to do any of that, they need to have registered.
-* Live link : (https://pitchezzz.herokuapp.com)
+* Live link : https://pitchezzz.herokuapp.com
 ## User Stories
 * As a user I would like to view the different categories.
 * As a user I would like to see the pitches other people have posted.
@@ -26,27 +26,34 @@ This is a web application that allows various users to submit a short pitch. Use
 
 
 ## Setup/Installation Requirements
-* To run the application, in your terminal:
-
-        $ chmod +x start.sh
-        $ ./start.sh
-        
 To clone this repo, open terminal in your desired folder then run:
 
         $ git clone https://github.com/philipkariuki/60-seconds/
+        $ cd /60-seconds
 
-To run the Python application within the folder from your cli:
-* Creating the virtual environment
+To create and activate the virtual environment and install pip:
 
         $ python3.6 -m venv --without-pip virtual
         $ source virtual/bin/env
         $ curl https://bootstrap.pypa.io/get-pip.py | python
-        
-        
-* Installing all the required modules
+
+
+To install all the required pip modules for proper functionality:
 
         (virtual)$ python3.6 -m pip install -r requirements.txt
 
+To run the application, in your terminal:
+
+        $ chmod +x start.sh
+        $ ./start.sh
+
+Alternatively:
+
+        $ python3.6 manage.py server
+        
+To run unittests:
+
+        $ python3.6 manage.py test
 
 ## Known Bugs
 
@@ -67,5 +74,8 @@ No known bugs
 ## Contributors
 <a href="https://github.com/philipkariuki">philipkariuki</a>
 
-## [License](https://github.com/philipkariuki/60-seconds/blob/master/LICENSE)
-MIT © 2019 [philipkariuki](https://github.com/philipkariuki)
+## Support and contact details
+To support me, you can contact me @<a href="https://www.gmail.com">philippokar@hotmail.co.uk</a>
+
+## License
+[MIT © 2019] [philipkariuki](https://github.com/philipkariuki/60-seconds/blob/master/LICENSE)
