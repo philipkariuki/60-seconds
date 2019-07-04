@@ -18,11 +18,11 @@ This is a web application that allows various users to submit a short pitch. Use
 ## Specifications
 | Behaviour | Input | Output |
 | --------------- | :----------:| --------: |
-|Display Various Pitch Categories | N/A | Various pitches grouped by category are displayed |
-|Display pitches | **Click** on a Category| A page with a list of pitches from the selected category |
-|Add new pitch | **Click** New pitch | User Should register/sign in to add new pitch |
-|View Pitches | **Click** on a pitch | View a pitch and comments |
-|Comment on a pitch | **Click** Comment | Registered User displays a form where a user can comment on a certain pitch |
+|Display Pre-set Pitch Categories | Loads on home page | Preset pitches categories are shown |
+|Display posted pitches | Click on a Category| Page with a list of pitches from the chosen category |
+|Add a new pitch | Click on **Write a new pitch** | Redirects to sign in page before user can add a new pitch |
+|View a particular pitch | Click on a pitch | View a pitch and the comments made by registered users |
+|Comment on a pitch | Click on Write a new comment | Registered User displays a form where a user can comment on a certain pitch |
 
 
 ## Setup/Installation Requirements
